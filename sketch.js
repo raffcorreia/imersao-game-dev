@@ -17,7 +17,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   cenario = new Cenario(imagemCenario, 3);
   personagem = new Personagem(imagemPersonagem);
-  // somDoJogo.play();
+  somDoJogo.loop();
   // frameRate(40);
   
   console.log('Setup');
