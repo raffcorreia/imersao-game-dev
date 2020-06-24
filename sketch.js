@@ -3,41 +3,37 @@ let imagemPersonagem;
 let cenario;
 let personagem;
 let somDoJogo;
-
-var circleSize = 0;
-var increment = 1;
+let somEstaTocando = false;
 
 function preload() {
-  imagemCenario = loadImage('imagens/cenario/floresta.png')
-  imagemPersonagem = loadImage('imagens/personagem/correndo.png')
-  somDoJogo = new loadSound('sons/trilha_jogo.mp3');
+    imagemCenario = loadImage('imagens/cenario/floresta.png')
+    imagemPersonagem = loadImage('imagens/personagem/correndo.png')
+    somDoJogo = new loadSound('sons/trilha_jogo.mp3');
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
-  cenario = new Cenario(imagemCenario, 3);
-  personagem = new Personagem(imagemPersonagem);
-  somDoJogo.loop();
-  // frameRate(40);
-  
-  console.log('Setup');
+    createCanvas(windowWidth, windowHeight);
+    cenario = new Cenario(imagemCenario, 3);
+    personagem = new Personagem(imagemPersonagem);
+    // frameRate(40);
+
+    console.log('Setup');
 }
 
 function draw() {
-  cenario.exibe();
-  cenario.move();
-  personagem.exibe();
-  // background(imagemCenario);
-  // image(imagemCenario, -50, 0, width, height);
-  // image(imagemCenario, width - 48, 0, width, height);
+    cenario.exibe();
+    cenario.move();
+    personagem.exibe();
+}
 
-  circle(mouseX, mouseY, circleSize)
-
-  if (circleSize > 50) {
-    increment = -1;
-  } else if (circleSize < 1) {
-    increment = 1;
-  }
-
-  circleSize += increment;
+function mouseClicked() {
+    if (mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height) {
+      if (!somEstaTocando) {
+        somDoJogo.loop();
+        somEstaTocando = true;
+      } else {
+        somDoJogo.stop();  
+        somEstaTocando = false;
+      }
+    }
 }
