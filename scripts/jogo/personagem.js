@@ -30,6 +30,23 @@ class Personagem extends Animacao{
         }
     }
 
+    estaColidindo(inimigo) {
+        noFill();
+        rect(this.x, this.y, this.largura, this.altura);
+        rect(inimigo.x, inimigo.y, inimigo.largura, inimigo.altura);
+        const precisao = .7;
+        return collideRectRect(
+            this.x,
+            this.y,
+            this.largura * precisao,
+            this.altura * precisao,
+            inimigo.x,
+            inimigo.y,
+            inimigo.largura * precisao,
+            inimigo.altura * precisao,
+        );
+    }
+
     // exibe() {
     //     let pos = this.proximoFrame;
     //     image(this.imagem,
