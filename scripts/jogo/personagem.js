@@ -4,6 +4,8 @@
 // const frameLargura = 270;
 // const tamMatrixQuadrada = 4;
 
+let somDoPulo;
+
 class Personagem extends Animacao{
     constructor(matriz, imagem, x, largura, altura, larguraSprite, alturaSprite) {
         super(matriz, imagem, x, largura, altura, larguraSprite, alturaSprite);
@@ -15,10 +17,12 @@ class Personagem extends Animacao{
         this.velocidadeDoPulo = 0;
         this.gravidade = 3;
 
+        somDoPulo = new loadSound('sons/somPulo.mp3');
     }
 
     pula() {
         this.velocidadeDoPulo = - 50;
+        somDoPulo.play();
     }
 
     aplicaGravidade() {
@@ -28,6 +32,23 @@ class Personagem extends Animacao{
         if(this.y > this.yInicial) {
             this.y = this.yInicial;
         }
+    }
+
+    estaColidindo(inimigo) {
+        noFill();
+        rect(this.x, this.y, this.largura, this.altura);
+        rect(inimigo.x, inimigo.y, inimigo.largura, inimigo.altura);
+        const precisao = .7;
+        return collideRectRect(
+            this.x,
+            this.y,
+            this.largura * precisao,
+            this.altura * precisao,
+            inimigo.x,
+            inimigo.y,
+            inimigo.largura * precisao,
+            inimigo.altura * precisao,
+        );
     }
 
     // exibe() {

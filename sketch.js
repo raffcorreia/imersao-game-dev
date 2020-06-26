@@ -90,6 +90,11 @@ function draw() {
 
     personagem.exibe();
     personagem.aplicaGravidade();
+
+    if(personagem.estaColidindo(inimigo)){
+        console.log('colidiu');
+        noLoop();
+    }
 }
 
 function mouseClicked() {
