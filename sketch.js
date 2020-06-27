@@ -159,7 +159,6 @@ function draw() {
     cenario.move();
     
     pontuacao.exibe();
-    pontuacao.adcionarPonto();
     
     personagem.exibe();
     personagem.aplicaGravidade();
@@ -171,6 +170,8 @@ function draw() {
     inimigo.move();
     
     if(inimigoSaiu) {
+        pontuacao.adcionarPonto();
+        
         inimigoAtual++;
         
         inimigo.limpa();
