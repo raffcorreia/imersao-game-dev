@@ -15,14 +15,19 @@ class Personagem extends Animacao{
         this.yInicial = height - altura - variacaoY;
 
         this.velocidadeDoPulo = 0;
-        this.gravidade = 3;
-
+        this.gravidade = 6;
+        this.alturaDoPulo = -70;
+        this.pulos = 0;
+        
         somDoPulo = new loadSound('sons/somPulo.mp3');
     }
-
+    
     pula() {
-        this.velocidadeDoPulo = - 50;
-        somDoPulo.play();
+        if(this.pulos < 2){
+            this.velocidadeDoPulo = this.alturaDoPulo;
+            somDoPulo.play();
+            this.pulos++;
+        }
     }
 
     aplicaGravidade() {
@@ -31,6 +36,7 @@ class Personagem extends Animacao{
 
         if(this.y > this.yInicial) {
             this.y = this.yInicial;
+            this.pulos = 0;
         }
     }
 
