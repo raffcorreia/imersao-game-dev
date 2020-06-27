@@ -13,7 +13,9 @@ let inimigoGrande;
 let inimigoVoador;
 
 let somDoJogo;
+
 let somEstaTocando = false;
+let inimigoAtual = 0;
 
 const matrizInimigo = [
         [0, 0],
@@ -134,9 +136,9 @@ function setup() {
 
     personagem = new Personagem(matrizHipsta, imagemPersonagem, 0, 30, 110, 135, 220, 270);
     
-    const inimigo = new Inimigo(matrizInimigo, imagemInimigo, width - 52, 30, 52, 52, 104, 104, 10, 200);
-    const inimigoGrande = new Inimigo(matrizInimigoGrande, imagemInimigoGrande, width, 30, 200, 200, 400, 400, 10, 1500);
-    const inimigoVoador = new Inimigo(matrizInimigoVoador, imagemInimigoVoador, width - 52, 200, 100, 75, 200, 150, 10, 2500);
+    const inimigo = new Inimigo(matrizInimigo, imagemInimigo, width - 52, 30, 52, 52, 104, 104, 10, 100);
+    const inimigoGrande = new Inimigo(matrizInimigoGrande, imagemInimigoGrande, width, 30, 200, 200, 400, 400, 10, 2000);
+    const inimigoVoador = new Inimigo(matrizInimigoVoador, imagemInimigoVoador, width - 52, 200, 100, 75, 200, 150, 10, 2000);
     // frameRate(40);
 
     inimigos.push(inimigo);
@@ -162,15 +164,26 @@ function draw() {
     personagem.exibe();
     personagem.aplicaGravidade();
     
-    inimigos.forEach(inimigo => {
-        inimigo.exibe();
-        inimigo.move();
+    const inimigo = inimigos[inimigoAtual];
+    const inimigoSaiu = inimigo.x < -inimigo.largura
+
+    inimigo.exibe();
+    inimigo.move();
+    
+    if(inimigoSaiu) {
+        inimigoAtual++;
         
-        if(personagem.estaColidindo(inimigo)){
-            image(imagemGameOver, width/2 - 200, height/2);
-            noLoop();
+        inimigo.limpa();
+
+        if(inimigoAtual >= inimigos.length) {
+            inimigoAtual = 0;
         }
-    });
+    }
+
+    if(personagem.estaColidindo(inimigo)){
+        image(imagemGameOver, width/2 - 200, height/2);
+        noLoop();
+    }
 }
 
 function mouseClicked() {

@@ -4,9 +4,10 @@ class Inimigo extends Animacao{
     constructor(matriz, imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite, vrlocidade, delay) {
         super(matriz, imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite);
 
-        this.x = width + delay;
         this.velocidade = vrlocidade;
         this.delay = delay;
+        
+        this.limpa();
     }
 
     move(){
@@ -17,4 +18,7 @@ class Inimigo extends Animacao{
         }
     }
 
+    limpa(){
+        this.x = width + this.delay;
+    }
 }
