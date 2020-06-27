@@ -7,22 +7,27 @@
 let somDoPulo;
 
 class Personagem extends Animacao{
-    constructor(matriz, imagem, x, largura, altura, larguraSprite, alturaSprite) {
-        super(matriz, imagem, x, largura, altura, larguraSprite, alturaSprite);
+    constructor(matriz, imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite) {
+        super(matriz, imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite);
 
         // this.frameAtual = -1;
 
-        this.yInicial = height - altura;
+        this.yInicial = height - altura - variacaoY;
 
         this.velocidadeDoPulo = 0;
-        this.gravidade = 3;
-
+        this.gravidade = 6;
+        this.alturaDoPulo = -70;
+        this.pulos = 0;
+        
         somDoPulo = new loadSound('sons/somPulo.mp3');
     }
-
+    
     pula() {
-        this.velocidadeDoPulo = - 50;
-        somDoPulo.play();
+        if(this.pulos < 2){
+            this.velocidadeDoPulo = this.alturaDoPulo;
+            somDoPulo.play();
+            this.pulos++;
+        }
     }
 
     aplicaGravidade() {
@@ -31,6 +36,7 @@ class Personagem extends Animacao{
 
         if(this.y > this.yInicial) {
             this.y = this.yInicial;
+            this.pulos = 0;
         }
     }
 
