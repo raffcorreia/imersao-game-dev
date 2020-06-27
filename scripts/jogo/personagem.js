@@ -7,12 +7,12 @@
 let somDoPulo;
 
 class Personagem extends Animacao{
-    constructor(matriz, imagem, x, largura, altura, larguraSprite, alturaSprite) {
-        super(matriz, imagem, x, largura, altura, larguraSprite, alturaSprite);
+    constructor(matriz, imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite) {
+        super(matriz, imagem, x, variacaoY, largura, altura, larguraSprite, alturaSprite);
 
         // this.frameAtual = -1;
 
-        this.yInicial = height - altura;
+        this.yInicial = height - altura - variacaoY;
 
         this.velocidadeDoPulo = 0;
         this.gravidade = 3;
