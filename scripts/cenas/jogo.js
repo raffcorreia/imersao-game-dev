@@ -6,6 +6,8 @@ class Jogo {
     setup() {
         cenario = new Cenario(imagemCenario, 3);
         pontuacao = new Pontuacao();
+
+        vida = new Vida(3, 3);
     
         personagem = new Personagem(matrizHipsta, imagemPersonagem, 0, 30, 110, 135, 220, 270);
         
@@ -31,6 +33,8 @@ class Jogo {
         cenario.move();
         
         pontuacao.exibe();
+
+        vida.draw();;
         
         personagem.exibe();
         personagem.aplicaGravidade();
@@ -56,8 +60,10 @@ class Jogo {
         }
     
         if(personagem.estaColidindo(inimigo)){
-            image(imagemGameOver, width/2 - 200, height/2);
-            noLoop();
+            vida.perdeVida();
+            personagem.tornaIncencivel();
+            // image(imagemGameOver, width/2 - 200, height/2);
+            // noLoop();
         }
     }
 }

@@ -18,6 +18,7 @@ class Personagem extends Animacao{
         this.gravidade = 6;
         this.alturaDoPulo = -70;
         this.pulos = 0;
+        this.invencivel = false;
         
         somDoPulo = new loadSound('sons/somPulo.mp3');
     }
@@ -41,6 +42,11 @@ class Personagem extends Animacao{
     }
 
     estaColidindo(inimigo) {
+
+        if(this.invencivel) {
+            return false;
+        }
+
         noFill();
         rect(this.x, this.y, this.largura, this.altura);
         rect(inimigo.x, inimigo.y, inimigo.largura, inimigo.altura);
@@ -55,6 +61,13 @@ class Personagem extends Animacao{
             inimigo.largura * precisao,
             inimigo.altura * precisao,
         );
+    }
+
+    tornaIncencivel() {
+        this.invencivel = true;
+        setTimeout(() => {
+            this.invencivel = false;
+        }, 1000);
     }
 
     // exibe() {
