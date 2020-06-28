@@ -1,6 +1,7 @@
 let imagemCenario;
 let imagemTelaInicial;
 let imagemGameOver;
+let imagemVida;
 let imagemPersonagem;
 let imagemInimigo;
 let imagemInimigoGrande;
@@ -10,6 +11,7 @@ let fonteTelaIncial;
 
 let cenario;
 let pontuacao;
+let vida;
 let personagem;
 let inimigo;
 let inimigoGrande;
