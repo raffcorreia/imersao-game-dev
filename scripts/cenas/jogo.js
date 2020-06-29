@@ -1,19 +1,21 @@
 class Jogo {
     constructor(){
         this.inimigoAtual = 0;
+        
+        this.mapa = fita.mapa;
     }
 
     setup() {
         cenario = new Cenario(imagemCenario, 3);
         pontuacao = new Pontuacao();
 
-        vida = new Vida(3, 3);
+        vida = new Vida(fita.configuracoes.vidaMaxima, fita.configuracoes.vidainicial);
     
         personagem = new Personagem(matrizHipsta, imagemPersonagem, 0, 30, 110, 135, 220, 270);
         
-        const inimigo = new Inimigo(matrizInimigo, imagemInimigo, width - 52, 30, 52, 52, 104, 104, 10, 100);
-        const inimigoGrande = new Inimigo(matrizInimigoGrande, imagemInimigoGrande, width, 30, 200, 200, 400, 400, 15, 100);
-        const inimigoVoador = new Inimigo(matrizInimigoVoador, imagemInimigoVoador, width - 52, 200, 100, 75, 200, 150, 10, 100);
+        const inimigo = new Inimigo(matrizInimigo, imagemInimigo, width - 52, 30, 52, 52, 104, 104, 10);
+        const inimigoGrande = new Inimigo(matrizInimigoGrande, imagemInimigoGrande, width, 30, 200, 200, 400, 400, 15);
+        const inimigoVoador = new Inimigo(matrizInimigoVoador, imagemInimigoVoador, width - 52, 200, 100, 75, 200, 150, 10);
     
         inimigos.push(inimigo);
         inimigos.push(inimigoGrande);
@@ -39,9 +41,11 @@ class Jogo {
         personagem.exibe();
         personagem.aplicaGravidade();
         
-        const inimigo = inimigos[this.inimigoAtual];
+        const linhaAtual = this.mapa[this.inimigoAtual];
+        const inimigo = inimigos[linhaAtual.inimigo];
         const inimigoSaiu = inimigo.x < -inimigo.largura
-    
+        
+        inimigo.velocidade = linhaAtual.velocidade;
         inimigo.exibe();
         inimigo.move();
         
@@ -50,13 +54,11 @@ class Jogo {
     
             this.inimigoAtual++;
             
-            inimigo.limpa();
+            inimigo.aparece();
     
-            if(this.inimigoAtual >= inimigos.length) {
+            if(this.inimigoAtual >= this.mapa.length) {
                 this.inimigoAtual = 0;
             }
-            inimigo.velocidae = parseInt(random(10, 30));
-            console.log(inimigo.velocidae);
         }
     
         if(personagem.estaColidindo(inimigo)){

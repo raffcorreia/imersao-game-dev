@@ -28,11 +28,12 @@ class Vida {
     perdeVida(){
         this.vidas--;
         if(this.vidas <= 0) {
-            image(imagemGameOver, width/2 - 200, height/2);
             setTimeout(() => {
-                image(imagemGameOver, width/2 - 200, height/2);
                 noLoop();
-            }, 100);
+                setTimeout(() => {
+                    image(imagemGameOver, width/2 - 200, height/2);
+                }, 100);
+            }, 10);
         }
     }
 }
